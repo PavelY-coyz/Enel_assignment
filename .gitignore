@@ -1,0 +1,4 @@
+/logs/*.log
+/.idea/sonarlint/issuestore/*
+/Output/*.csv
+/all-data.tar/csv/.*csv
