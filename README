@@ -1,0 +1,105 @@
+Environment Requirements:
+    python version: 3.10.1
+    pip version: 21.3.1
+
+
+
+    External library/module/package requirements can be found in ./requirements.txt
+    (install by running : "pip install -r requirements.txt" in console while being at the root of the project directory)
+
+Assignment:
+
+    Here is the link to the data set: https://open-enernoc-data.s3.amazonaws.com/anon/all-data.tar.gz
+
+
+
+    Inside this archive you will find 100 CSV files, each representing a separate data stream of meter data.
+    There are 6 columns of data, in order:
+
+
+
+    timestamp
+
+    dttm_utc
+
+    value
+
+    estimated indicator
+
+    anomaly indicator
+
+
+
+    Instructions
+
+
+
+    Pick a language: JavaScript or something functional preferred but Ruby or Python is OK
+
+
+
+    Part 1:
+
+    Write a program to load the data in to memory.  Identify & rank the data streams with the most NaN and 0 values.
+    Ignore any data stream that appears to hold only binary values (0 and 1).
+
+    The output should include the percentage of 0's or NaN's relative to the number of intervals for each data stream.
+    Additionally include the count of 0's or NaN's for each data stream.
+
+
+
+    Part 2:
+
+    When analysts look at our data streams 5 minute data intervals are often too granular.
+    Many times hourly or daily data for each data stream is more than enough.
+
+    Write an algorithm that will quickly and effectively roll data up for each data stream in to both hourly and daily
+    sums.
+    Additionally please compute the following statistics at both the hourly and daily level for all data streams:
+
+    *   Min
+
+    *   Max
+
+    *   Median
+
+    *   Mean
+
+    The output should include the above items listed on the screen by id for both hourly and daily rollups.
+
+    Extra Credit:
+
+    Find the 2 data streams that are the most similar.  You define what similar means.
+
+    Directions:
+
+    1.  Your code should be easily readable and maintainable
+
+    2.  Include unit-tests to validate your application’s functionality
+
+    Some things to keep in mind:
+
+    *   You do not need a UI, just unit tests
+
+    *   Output to the screen is fine, though your output data should be structured and persisted in memory
+
+    *   You do not need to use an external data storage system, but think about how the data could be modeled
+        in a datastore (SQL or NoSQL) if you were to transition from the in memory database to a persistent datastore
+
+    Questions:
+
+    *   If you had to choose a persistent datastore to use for this application, what would you use and why?
+            Depends on a few factors - regarding how this data is linked to the clients and how it will be used.
+            However, I would go with Mongo for this. Other than linking the data to a batch - there arent any relationships
+            here. And Mongo is perfect for semi-structured data storage.
+
+    *   How could we scale running algorithms such as this to run across 10's of thousands of sites many times a day?
+            Producer : Consumer structure with API's. The ranking done at the end of the batch is the main point of concern.
+            For interval-level calculations - those can be done by an individual api call and recorded to the database
+            with the batch id.
+
+            The ranking and marking the batch as complete has to be done once the batch is complete.
+
+    *   How did you structure your application such that adding additional analytic types would require minimal code changes?
+            It isnt "fully" - configurable (e.g., it isnt config.json/yaml driven - as the configurations have callback functions
+            however, the in-code configuration can be changed to easily add new interval types/calculations.
