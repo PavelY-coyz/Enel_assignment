@@ -2,10 +2,34 @@ Environment Requirements:
     python version: 3.10.1
     pip version: 21.3.1
 
+    Setup process:
+        Pull the repo
+        Install python v3.10.1 (3.7^ should work file - but not tested) - make sure you install PIP with it
+            - preferably set the PATH variable during the installation (for simplicity)
 
+        Open a cmd/bash terminal and create the python virtual environment:
+            $ mkdir "<my_path>" venv
+            $ cd "<my_path>/venv"
+            $ python -m venv "Enel"
 
-    External library/module/package requirements can be found in ./requirements.txt
-    (install by running : "pip install -r requirements.txt" in console while being at the root of the project directory)
+        Activate the virtual environment
+            $ cd "<my_path>/venv/Enel/"
+            $ activate
+        (you should see the cmd/bash line start with "(Enel)")
+
+        Update pip
+            $ python -m pip install --upgrade pip
+
+        Install dependencies from the requirements.txt:
+            In your cmd traverse to the project folder (or just use the path for it)
+
+            $ pip install -r "<path to requirements.txt>"
+
+            If you then run "pip freeze" you should see all the packets installed
+
+        Run the main.py
+        Traverse to the project directory and run (you shouldn't need to change anything in the config.py):
+            $ python main.py
 
 Assignment:
 
